@@ -52,6 +52,7 @@ import com.google.mlkit.vision.demo.java.posedetector.PoseDetectorProcessor;
 import com.google.mlkit.vision.demo.java.segmenter.SegmenterProcessor;
 import com.google.mlkit.vision.demo.java.facemeshdetector.FaceMeshDetectorProcessor;
 import com.google.mlkit.vision.demo.java.textdetector.TextRecognitionProcessor;
+import com.google.mlkit.vision.demo.java.textdetector.TextRecognitionProcessorTest;
 import com.google.mlkit.vision.demo.preference.PreferenceUtils;
 import com.google.mlkit.vision.demo.preference.SettingsActivity;
 import com.google.mlkit.vision.label.custom.CustomImageLabelerOptions;
@@ -80,6 +81,7 @@ public final class StillImageActivity extends AppCompatActivity {
       "Custom AutoML Object Detection (Flower)";
   private static final String FACE_DETECTION = "Face Detection";
   private static final String BARCODE_SCANNING = "Barcode Scanning";
+  private static final String EXERCISE = "Esercizio MLKit";
   private static final String IMAGE_LABELING = "Image Labeling";
   private static final String IMAGE_LABELING_CUSTOM = "Custom Image Labeling (Birds)";
   private static final String CUSTOM_AUTOML_LABELING = "Custom AutoML Image Labeling (Flower)";
@@ -214,6 +216,7 @@ public final class StillImageActivity extends AppCompatActivity {
     options.add(CUSTOM_AUTOML_OBJECT_DETECTION);
     options.add(FACE_DETECTION);
     options.add(BARCODE_SCANNING);
+    options.add(EXERCISE);
     options.add(IMAGE_LABELING);
     options.add(IMAGE_LABELING_CUSTOM);
     options.add(CUSTOM_AUTOML_LABELING);
@@ -437,6 +440,12 @@ public final class StillImageActivity extends AppCompatActivity {
           break;
         case BARCODE_SCANNING:
           imageProcessor = new BarcodeScannerProcessor(this);
+          break;
+        case EXERCISE:
+          if (imageProcessor != null) {
+            imageProcessor.stop();
+          }
+          imageProcessor = new TextRecognitionProcessorTest(this, new TextRecognizerOptions.Builder().build());
           break;
         case TEXT_RECOGNITION_LATIN:
           if (imageProcessor != null) {
